@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-deployment
+  labels:
+    app: backend
 spec:
   replicas: 2
   selector:
@@ -14,15 +16,27 @@ spec:
     spec:
       containers:
         - name: backend
-          image: <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+          image: 516199268613.dkr.ecr.us-east-1.amazonaws.com/funcionario-app:latest
           ports:
             - containerPort: 5000
           env:
             - name: DB_HOST
-              value: mysql
-            - name: DB_USER
-              value: root
-            - name: DB_PASS
-              value: ""
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: DB_HOST
             - name: DB_NAME
-              value: funcionarioDB
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: DB_PASSWORD
