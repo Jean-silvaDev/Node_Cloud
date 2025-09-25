@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: us-east-1             # 🔹 Região do seu cluster
   CLUSTER_NAME: node-cluster        # 🔹 Nome do cluster EKS
-  ECR_REPOSITORY: aplicacaoNode   # 🔹 Nome do repositório no ECR
+  ECR_REPOSITORY: node-cluster   # 🔹 Nome do repositório no ECR
   IMAGE_TAG: latest                 # 🔹 Pode trocar para usar SHA do commit
 
 jobs:
