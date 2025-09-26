@@ -16,10 +16,10 @@ app.use((0, cors_1.default)());
  *
 */
 const db = mysql2_1.default.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "funcionarioDB",
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASS || "",
+    database: process.env.DB_NAME || "funcionarioDB",
 });
 // Conectando ao banco
 db.connect((err) => {
